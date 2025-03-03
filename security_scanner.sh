@@ -1,9 +1,21 @@
 #!/bin/bash
+ascii="                              _ __       
+   ________  _______  _______(_) /___  __
+  / ___/ _ \\/ ___/ / / / ___/ / __/ / / /
+ (__  )  __/ /__/ /_/ / /  / / /_/ /_/ / 
+/____/\\___/\\___/\\__,_/_/  /_/\\__/\\__, /  
+   ______________ _____  ____  _/____/___
+  / ___/ ___/ __ \`/ __ \\/ __ \\/ _ \\/ ___/
+ (__  ) /__/ /_/ / / / / / / /  __/ /    
+/____/\\___/\\__,_/_/ /_/_/ /_/\\___/_/     
+"
 log_file=/var/log/auth.log
 failed_login_pattern="(gdm-password:auth): authentication failure;"
 unauthorized_sudo_pattern="(sudo:auth): authentication failure;"
 login_attempts_output="login_attempts.log"
 sudo_attempts_output="sudo_attempts.log"
+
+echo "$ascii" 
 
 failed_login_scan() {
         if grep -q "$failed_login_pattern" "$log_file"; then
@@ -27,6 +39,7 @@ read_login_attempts() {
 	if [ -s "$login_attempts_output" ]; then
 		echo -e "\nDetected failed login attempts:"
 		cat "$login_attempts_output"
+		echo -e "\n"
 	else
 		echo "Error: Login attempts log is empty."
 	fi
@@ -36,6 +49,7 @@ read_sudo_attempts() {
 	if [ -s "$sudo_attempts_output" ]; then
 		echo -e "\nDetected failed sudo access attempts: "
 		cat "$sudo_attempts_output"
+		echo -e "\n"
 	else
 		echo "Error: Sudo access attempts log is empty."
 	fi
