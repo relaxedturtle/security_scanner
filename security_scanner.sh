@@ -15,8 +15,6 @@ unauthorized_sudo_pattern="(sudo:auth): authentication failure;"
 login_attempts_output="login_attempts.log"
 sudo_attempts_output="sudo_attempts.log"
 
-echo "$ascii" 
-
 failed_login_scan() {
         if grep -q "$failed_login_pattern" "$log_file"; then
                 echo -e "One or more failed login attempt(s) found. Saving to 'login_attempts.log'"
@@ -73,6 +71,7 @@ wipe_log_files() {
 
 main() {
         while true; do
+		echo "$ascii"
                 echo "Options: "
                 echo "1. Scan for failed login attempts"
                 echo "2. Scan for unauthorized sudo attempts"
